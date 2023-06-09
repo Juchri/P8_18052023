@@ -1,6 +1,14 @@
 CHANGELOG
 =========
 
+3.4.0
+-----
+
+ * added support for doctrine/dbal v2.6 types
+ * added cause of UniqueEntity constraint violation
+ * deprecated `DbalSessionHandler` and `DbalSessionHandlerSchema` in favor of
+   `Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler`
+
 3.1.0
 -----
 
@@ -17,6 +25,12 @@ CHANGELOG
  * removed `$manager` (2nd) and `$class` (3th) arguments of `ORMQueryBuilderLoader`
  * removed passing a query builder closure to `ORMQueryBuilderLoader`
  * removed `loader` and `property` options of the `DoctrineType`
+
+2.8.0
+-----
+
+ * deprecated using the entity provider with a Doctrine repository implementing UserProviderInterface
+ * added UserLoaderInterface for loading users through Doctrine.
 
 2.7.0
 -----

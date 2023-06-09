@@ -47,10 +47,6 @@ To copy the database structure :
  `php bin/console d:s:u -f`
 
 
+Pour mettre à jour symfony :
+`composer require symfony/symfony:3.4`
 
-`symfony new monblog --version=4.4 --full`
-
-cd -
-
-
-symfony new P8_18052023 --version=4.4 --full

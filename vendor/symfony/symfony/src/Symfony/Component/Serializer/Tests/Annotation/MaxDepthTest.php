@@ -11,26 +11,47 @@
 
 namespace Symfony\Component\Serializer\Tests\Annotation;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @author Kévin Dunglas <dunglas@gmail.com>
  */
-class MaxDepthTest extends \PHPUnit_Framework_TestCase
+class MaxDepthTest extends TestCase
 {
     /**
      * @expectedException \Symfony\Component\Serializer\Exception\InvalidArgumentException
+     * @expectedExceptionMessage Parameter of annotation "Symfony\Component\Serializer\Annotation\MaxDepth" should be set.
      */
-    public function testNotAnIntMaxDepthParameter()
+    public function testNotSetMaxDepthParameter()
     {
-        new MaxDepth(array('value' => 'foo'));
+        new MaxDepth(array());
+    }
+
+    public function provideInvalidValues()
+    {
+        return array(
+            array(''),
+            array('foo'),
+            array('1'),
+            array(0),
+        );
+    }
+
+    /**
+     * @dataProvider provideInvalidValues
+     *
+     * @expectedException \Symfony\Component\Serializer\Exception\InvalidArgumentException
+     * @expectedExceptionMessage Parameter of annotation "Symfony\Component\Serializer\Annotation\MaxDepth" must be a positive integer.
+     */
+    public function testNotAnIntMaxDepthParameter($value)
+    {
+        new MaxDepth(array('value' => $value));
     }
 
     public function testMaxDepthParameters()
     {
-        $validData = 3;
-
-        $groups = new MaxDepth(array('value' => 3));
-        $this->assertEquals($validData, $groups->getMaxDepth());
+        $maxDepth = new MaxDepth(array('value' => 3));
+        $this->assertEquals(3, $maxDepth->getMaxDepth());
     }
 }

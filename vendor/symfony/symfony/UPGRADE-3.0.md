@@ -253,6 +253,9 @@ UPGRADE FROM 2.x to 3.0
    closures, but the closure is now resolved in the type instead of in the
    loader.
 
+ * Using the entity provider with a Doctrine repository implementing `UserProviderInterface` is not supported anymore.
+   You should make the repository implement `UserLoaderInterface` instead.
+
 ### EventDispatcher
 
  * The method `getListenerPriority($eventName, $listener)` has been added to the
@@ -1141,7 +1144,7 @@ UPGRADE FROM 2.x to 3.0
            'http_digest' => array('secret' => '%secret%'),
        ),
    ));
-  ```
+   ```
 
  * The `AbstractVoter` class was removed. Instead, extend the new `Voter` class,
    introduced in 2.8, and move your voting logic to the to the `supports($attribute, $subject)`
@@ -1902,5 +1905,11 @@ UPGRADE FROM 2.x to 3.0
    After:
 
    ```php
-   $request->query->get('foo')[bar];
+   $request->query->get('foo')['bar'];
    ```
+### Monolog Bridge
+
+ * `Symfony\Bridge\Monolog\Logger::emerg()` was removed. Use `emergency()` which is PSR-3 compatible.
+ * `Symfony\Bridge\Monolog\Logger::crit()` was removed. Use `critical()` which is PSR-3 compatible.
+ * `Symfony\Bridge\Monolog\Logger::err()` was removed. Use `error()` which is PSR-3 compatible.
+ * `Symfony\Bridge\Monolog\Logger::warn()` was removed. Use `warning()` which is PSR-3 compatible.

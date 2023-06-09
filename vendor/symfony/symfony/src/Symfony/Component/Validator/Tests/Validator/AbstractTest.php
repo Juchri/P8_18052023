@@ -12,7 +12,9 @@
 namespace Symfony\Component\Validator\Tests\Validator;
 
 use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\GroupSequence;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Constraints\Traverse;
 use Symfony\Component\Validator\Constraints\Valid;
@@ -36,9 +38,6 @@ abstract class AbstractTest extends AbstractValidatorTest
     protected $validator;
 
     /**
-     * @param MetadataFactoryInterface $metadataFactory
-     * @param array                    $objectInitializers
-     *
      * @return ValidatorInterface
      */
     abstract protected function createValidator(MetadataFactoryInterface $metadataFactory, array $objectInitializers = array());
@@ -602,8 +601,8 @@ abstract class AbstractTest extends AbstractValidatorTest
         $entity->initialized = false;
 
         // prepare initializers that set "initialized" to true
-        $initializer1 = $this->getMock('Symfony\\Component\\Validator\\ObjectInitializerInterface');
-        $initializer2 = $this->getMock('Symfony\\Component\\Validator\\ObjectInitializerInterface');
+        $initializer1 = $this->getMockBuilder('Symfony\\Component\\Validator\\ObjectInitializerInterface')->getMock();
+        $initializer2 = $this->getMockBuilder('Symfony\\Component\\Validator\\ObjectInitializerInterface')->getMock();
 
         $initializer1->expects($this->once())
             ->method('initialize')
@@ -650,5 +649,57 @@ abstract class AbstractTest extends AbstractValidatorTest
 
         $this->assertCount(1, $violations);
         $this->assertSame($constraint, $violations[0]->getConstraint());
+    }
+
+    public function testCollectionConstraitViolationHasCorrectContext()
+    {
+        $data = array(
+            'foo' => 'fooValue',
+        );
+
+        // Missing field must not be the first in the collection validation
+        $constraint = new Collection(array(
+            'foo' => new NotNull(),
+            'bar' => new NotNull(),
+        ));
+
+        $violations = $this->validate($data, $constraint);
+
+        $this->assertCount(1, $violations);
+        $this->assertSame($constraint, $violations[0]->getConstraint());
+    }
+
+    public function testNestedObjectIsNotValidatedIfGroupInValidConstraintIsNotValidated()
+    {
+        $entity = new Entity();
+        $entity->firstName = '';
+        $reference = new Reference();
+        $reference->value = '';
+        $entity->childA = $reference;
+
+        $this->metadata->addPropertyConstraint('firstName', new NotBlank(array('groups' => 'group1')));
+        $this->metadata->addPropertyConstraint('childA', new Valid(array('groups' => 'group1')));
+        $this->referenceMetadata->addPropertyConstraint('value', new NotBlank());
+
+        $violations = $this->validator->validate($entity, null, array());
+
+        $this->assertCount(0, $violations);
+    }
+
+    public function testNestedObjectIsValidatedIfGroupInValidConstraintIsValidated()
+    {
+        $entity = new Entity();
+        $entity->firstName = '';
+        $reference = new Reference();
+        $reference->value = '';
+        $entity->childA = $reference;
+
+        $this->metadata->addPropertyConstraint('firstName', new NotBlank(array('groups' => 'group1')));
+        $this->metadata->addPropertyConstraint('childA', new Valid(array('groups' => 'group1')));
+        $this->referenceMetadata->addPropertyConstraint('value', new NotBlank(array('groups' => 'group1')));
+
+        $violations = $this->validator->validate($entity, null, array('Default', 'group1'));
+
+        $this->assertCount(2, $violations);
     }
 }
