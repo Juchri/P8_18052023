@@ -41,7 +41,8 @@ class UserController extends Controller
             return $this->redirectToRoute('user_list');
         }
 
-        return $this->render('user/create.html.twig', ['form' => $form->createView()]);
+        return $this->render('user/create.html.twig', ['form' => $form->createView(),
+        ]);
     }
 
     /**

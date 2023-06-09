@@ -767,7 +767,6 @@ class SymfonyRequirements extends RequirementCollection
                 'Install <strong>PDO drivers</strong> (mandatory for Doctrine).'
             );
         }
-    }
 
     /**
      * Loads realpath_cache_size from php.ini and converts it to int.
