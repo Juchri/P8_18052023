@@ -40,6 +40,13 @@ class Task
      */
     private $isDone;
 
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="task")
+     * @ORM\JoinColumn(name="done_by", referencedColumnName="id")
+     */
+    private $done_by;
+
     public function __construct()
     {
         $this->createdAt = new \Datetime();
@@ -90,4 +97,15 @@ class Task
     {
         $this->isDone = $flag;
     }
+
+    public function getUser()
+    {
+        return $this->done_by;
+    }
+
+    public function setUser($done_by)
+    {
+        $this->done_by = $done_by;
+    }
+
 }
