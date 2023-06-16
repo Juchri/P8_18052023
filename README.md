@@ -47,6 +47,9 @@ To copy the database structure :
  `php bin/console d:s:u -f`
 
 
-Pour mettre à jour symfony :
-`composer require symfony/symfony:3.4`
+Mise à jour vers Symfony 3.4 :
+`composer require symfony/symfony:3.4 --with-all-dependencies`
 
+
+
+`composer require --dev phpunit/phpunit ^8`

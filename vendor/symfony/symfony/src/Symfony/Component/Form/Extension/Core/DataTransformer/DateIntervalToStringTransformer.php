@@ -23,20 +23,17 @@ use Symfony\Component\Form\Exception\UnexpectedTypeException;
 class DateIntervalToStringTransformer implements DataTransformerInterface
 {
     private $format;
-    private $parseSigned;
 
     /**
      * Transforms a \DateInterval instance to a string.
      *
      * @see \DateInterval::format() for supported formats
      *
-     * @param string $format      The date format
-     * @param bool   $parseSigned Whether to parse as a signed interval
+     * @param string $format The date format
      */
-    public function __construct($format = 'P%yY%mM%dDT%hH%iM%sS', $parseSigned = false)
+    public function __construct($format = 'P%yY%mM%dDT%hH%iM%sS')
     {
         $this->format = $format;
-        $this->parseSigned = $parseSigned;
     }
 
     /**
@@ -65,7 +62,7 @@ class DateIntervalToStringTransformer implements DataTransformerInterface
      *
      * @param string $value An ISO 8601 or date string like date interval presentation
      *
-     * @return \DateInterval An instance of \DateInterval
+     * @return \DateInterval|null An instance of \DateInterval
      *
      * @throws UnexpectedTypeException       if the given value is not a string
      * @throws TransformationFailedException if the date interval could not be parsed
@@ -73,16 +70,16 @@ class DateIntervalToStringTransformer implements DataTransformerInterface
     public function reverseTransform($value)
     {
         if (null === $value) {
-            return;
+            return null;
         }
-        if (!is_string($value)) {
+        if (!\is_string($value)) {
             throw new UnexpectedTypeException($value, 'string');
         }
         if ('' === $value) {
-            return;
+            return null;
         }
         if (!$this->isISO8601($value)) {
-            throw new TransformationFailedException('Non ISO 8601 date strings are not supported yet');
+            throw new TransformationFailedException('Non ISO 8601 date strings are not supported yet.');
         }
         $valuePattern = '/^'.preg_replace('/%([yYmMdDhHiIsSwW])(\w)/', '(?P<$1>\d+)$2', $this->format).'$/';
         if (!preg_match($valuePattern, $value)) {

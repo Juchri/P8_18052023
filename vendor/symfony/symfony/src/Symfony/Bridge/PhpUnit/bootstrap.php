@@ -25,10 +25,14 @@ if (!defined('PHPUNIT_COMPOSER_INSTALL') && !class_exists('PHPUnit_TextUI_Comman
 }
 
 // Enforce a consistent locale
-setlocale(LC_ALL, 'C');
+setlocale(\LC_ALL, 'C');
 
 if (!class_exists('Doctrine\Common\Annotations\AnnotationRegistry', false) && class_exists('Doctrine\Common\Annotations\AnnotationRegistry')) {
-    AnnotationRegistry::registerLoader('class_exists');
+    if (method_exists('Doctrine\Common\Annotations\AnnotationRegistry', 'registerUniqueLoader')) {
+        AnnotationRegistry::registerUniqueLoader('class_exists');
+    } else {
+        AnnotationRegistry::registerLoader('class_exists');
+    }
 }
 
 if ('disabled' !== getenv('SYMFONY_DEPRECATIONS_HELPER')) {

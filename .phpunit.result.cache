@@ -1,0 +1,1 @@
+{"version":1,"defects":{"Tests\\AppBundle\\Controller\\DefaultControllerTest::testIndex":3,"App\\Tests\\Entity\\ProductTest::testDefault":4},"times":{"Tests\\AppBundle\\Controller\\DefaultControllerTest::testIndex":0.101,"App\\Tests\\Entity\\ProductTest::testDefault":0.01}}

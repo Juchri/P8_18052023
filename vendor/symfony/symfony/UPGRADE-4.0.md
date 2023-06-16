@@ -1,6 +1,40 @@
 UPGRADE FROM 3.x to 4.0
 =======================
 
+Symfony Framework
+-----------------
+
+The first step to upgrade a Symfony 3.x application to 4.x is to update the
+file and directory structure of your application:
+
+| Symfony 3.x                         | Symfony 4.x
+| ----------------------------------- | --------------------------------
+| `app/config/`                       | `config/`
+| `app/config/*.yml`                  | `config/*.yaml` and `config/packages/*.yaml`
+| `app/config/parameters.yml.dist`    | `config/services.yaml` and `.env.dist`
+| `app/config/parameters.yml`         | `config/services.yaml` and `.env`
+| `app/Resources/<BundleName>/views/` | `templates/bundles/<BundleName>/`
+| `app/Resources/`                    | `src/Resources/`
+| `app/Resources/assets/`             | `assets/`
+| `app/Resources/translations/`       | `translations/`
+| `app/Resources/views/`              | `templates/`
+| `src/AppBundle/`                    | `src/`
+| `var/logs/`                         | `var/log/`
+| `web/`                              | `public/`
+| `web/app.php`                       | `public/index.php`
+| `web/app_dev.php`                   | `public/index.php`
+
+Then, upgrade the contents of your console script and your front controller:
+
+* `bin/console`: https://github.com/symfony/recipes/blob/master/symfony/console/4.4/bin/console
+* `public/index.php`: https://github.com/symfony/recipes/blob/master/symfony/framework-bundle/4.4/public/index.php
+
+Lastly, read the following article to add Symfony Flex to your application and
+upgrade the configuration files: https://symfony.com/doc/current/setup/flex.html
+
+If you use Symfony components instead of the whole framework, you can find below
+the upgrading instructions for each individual bundle and component.
+
 ClassLoader
 -----------
 
@@ -129,7 +163,18 @@ DependencyInjection
            autowire: true
     ```
 
- * Autowiring services based on the types they implement is not supported anymore. Rename (or alias) your services to their FQCN id to make them autowirable.
+ * Autowiring services based on the types they implement is not supported anymore.
+   It will only look for an alias or a service id that matches a given FQCN.
+   Rename (or alias) your services to their FQCN id to make them autowirable.
+   In 3.4, you can activate this behavior instead of having deprecation messages
+   by setting the following parameter:
+
+   ```yml
+   parameters:
+       container.autowiring.strict_mode: true
+   ```
+
+   From 4.0, you can remove it as it's the default behavior and the parameter is not handled anymore.
 
  * `_defaults` and `_instanceof` are now reserved service names in Yaml configurations. Please rename any services with that names.
 
@@ -185,11 +230,22 @@ DependencyInjection
    supported.
 
  * The ``strict`` attribute in service arguments has been removed.
-   The attribute is ignored since 3.0, so you can simply remove it.
+   The attribute is ignored since 3.0, you can remove it.
 
  * Top-level anonymous services in XML are no longer supported.
 
  * The `ExtensionCompilerPass` has been moved to before-optimization passes with priority -1000.
+
+ * In 3.4, parameter `container.dumper.inline_class_loader` was introduced. Unless
+   you're using a custom autoloader, you should enable this parameter. This can
+   drastically improve DX by reducing the time to load classes when the `DebugClassLoader`
+   is enabled. If you're using `FrameworkBundle`, this performance improvement will
+   also impact the "dev" environment:
+
+   ```yml
+   parameters:
+       container.dumper.inline_class_loader: true
+   ```
 
 DoctrineBridge
 --------------
@@ -241,19 +297,17 @@ Form
    `ArrayAccess` in `ResizeFormListener::preSubmit` method has been removed.
 
  * Using callable strings as choice options in ChoiceType is not supported
-   anymore in favor of passing PropertyPath instances.
+   anymore.
 
    Before:
 
    ```php
-   'choice_value' => new PropertyPath('range'),
    'choice_label' => 'strtoupper',
    ```
 
    After:
 
    ```php
-   'choice_value' => 'range',
    'choice_label' => function ($choice) {
        return strtoupper($choice);
    },
@@ -312,7 +366,7 @@ Form
    ```php
    class MyTimezoneType extends TimezoneType
    {
-       public function loadChoices()
+       public function loadChoiceList()
        {
            // override the method
        }
@@ -501,11 +555,11 @@ FrameworkBundle
     first argument.
 
  * `RouterDebugCommand::__construct()` now requires an instance of
-   `Symfony\Component\Routing\RouterInteface` as
+   `Symfony\Component\Routing\RouterInterface` as
     first argument.
 
  * `RouterMatchCommand::__construct()` now requires an instance of
-   `Symfony\Component\Routing\RouterInteface` as
+   `Symfony\Component\Routing\RouterInterface` as
     first argument.
 
  * `TranslationDebugCommand::__construct()` now requires an instance of
@@ -593,7 +647,7 @@ HttpKernel
        # ...
 
        # explicit commands registration
-       AppBundle\Command:
+       AppBundle\Command\:
            resource: '../../src/AppBundle/Command/*'
            tags: ['console.command']
    ```
@@ -667,7 +721,7 @@ Process
 
  * Extending `Process::run()`, `Process::mustRun()` and `Process::restart()` is
    not supported anymore.
-   
+
  * The `getEnhanceWindowsCompatibility()` and `setEnhanceWindowsCompatibility()` methods of the `Process` class have been removed.
 
 Profiler
@@ -702,6 +756,9 @@ Security
 
  * The `GuardAuthenticatorInterface` interface has been removed.
    Use `AuthenticatorInterface` instead.
+
+ * When extending `AbstractGuardAuthenticator` getCredentials() cannot return
+   `null` anymore, return false from `supports()` if no credentials available instead.
 
 SecurityBundle
 --------------
@@ -867,7 +924,7 @@ Validator
 VarDumper
 ---------
 
- * The `VarDumperTestTrait::assertDumpEquals()` method expects a 3rd `$context = null`
+ * The `VarDumperTestTrait::assertDumpEquals()` method expects a 3rd `$filter = 0`
    argument and moves `$message = ''` argument at 4th position.
 
    Before:
@@ -882,7 +939,7 @@ VarDumper
    VarDumperTestTrait::assertDumpEquals($dump, $data, $filter = 0, $message = '');
    ```
 
- * The `VarDumperTestTrait::assertDumpMatchesFormat()` method expects a 3rd `$context = null`
+ * The `VarDumperTestTrait::assertDumpMatchesFormat()` method expects a 3rd `$filter = 0`
    argument and moves `$message = ''` argument at 4th position.
 
    Before:
