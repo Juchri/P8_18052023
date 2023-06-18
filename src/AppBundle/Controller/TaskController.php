@@ -49,9 +49,8 @@ class TaskController extends Controller
     /**
      * @Route("/tasks/{id}/edit", name="task_edit")
      */
-    public function editAction(Task $task, Request $request, UserInterface $currentUser)
+    public function editAction(Task $task, Request $request)
     {
-        if ($task->getUser() == $currentUser) {
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
@@ -68,10 +67,6 @@ class TaskController extends Controller
             'form' => $form->createView(),
             'task' => $task,
         ]);
-        } else {
-            $this->addFlash('error', 'Cette tâche ne peut être modifiée que par son auteur.');
-            return $this->redirectToRoute('task_list');
-        }
     }
 
     /**
@@ -90,10 +85,8 @@ class TaskController extends Controller
     /**
      * @Route("/tasks/{id}/delete", name="task_delete")
      */
-    public function deleteTaskAction(Task $task, UserInterface $currentUser)
+    public function deleteTaskAction(Task $task)
     {
-        if ($task->getUser() == $currentUser) {
-
         $em = $this->getDoctrine()->getManager();
         $em->remove($task);
         $em->flush();
@@ -101,9 +94,5 @@ class TaskController extends Controller
         $this->addFlash('success', 'La tâche a bien été supprimée.');
 
         return $this->redirectToRoute('task_list');
-        } else {
-            $this->addFlash('error', 'Cette tâche ne peut être suprimée que par son auteur ou un admin.');
-            return $this->redirectToRoute('task_list');
-        }
     }
 }

@@ -8,8 +8,6 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-
 
 class UserType extends AbstractType
 {
@@ -25,12 +23,6 @@ class UserType extends AbstractType
                 'second_options' => ['label' => 'Tapez le mot de passe à nouveau'],
             ])
             ->add('email', EmailType::class, ['label' => 'Adresse email'])
-            ->add('roles', ChoiceType::class, [
-                'choices'  => [
-                    'Standard' => 'ROLE_USER',
-                    'Admin' => 'ROLE_ADMIN'
-                ],
-            ]);
         ;
     }
 }
