@@ -12,7 +12,7 @@ use Twig\Sandbox\SecurityNotAllowedFunctionError;
 use Twig\Source;
 use Twig\Template;
 
-/* security/login.html.twig */
+/* :security:login.html.twig */
 class __TwigTemplate_ca18344cf117af386b0176bb8bee5ca00ccfb3b58a1a45cc8334cc41ccabd2f6 extends \Twig\Template
 {
     private $source;
@@ -39,12 +39,12 @@ class __TwigTemplate_ca18344cf117af386b0176bb8bee5ca00ccfb3b58a1a45cc8334cc41cca
     {
         $macros = $this->macros;
         $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
-        $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e->enter($__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "security/login.html.twig"));
+        $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e->enter($__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", ":security:login.html.twig"));
 
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
-        $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "security/login.html.twig"));
+        $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", ":security:login.html.twig"));
 
-        $this->parent = $this->loadTemplate("base.html.twig", "security/login.html.twig", 1);
+        $this->parent = $this->loadTemplate("base.html.twig", ":security:login.html.twig", 1);
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
         $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e->leave($__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e_prof);
@@ -101,7 +101,7 @@ class __TwigTemplate_ca18344cf117af386b0176bb8bee5ca00ccfb3b58a1a45cc8334cc41cca
 
     public function getTemplateName()
     {
-        return "security/login.html.twig";
+        return ":security:login.html.twig";
     }
 
     public function isTraitable()
@@ -133,6 +133,6 @@ class __TwigTemplate_ca18344cf117af386b0176bb8bee5ca00ccfb3b58a1a45cc8334cc41cca
         <button class=\"btn btn-success\" type=\"submit\">Se connecter</button>
     </form>
 {% endblock %}
-", "security/login.html.twig", "/Applications/MAMP/htdocs/P8_18052023/app/Resources/views/security/login.html.twig");
+", ":security:login.html.twig", "/Applications/MAMP/htdocs/P8_18052023/app/Resources/views/security/login.html.twig");
     }
 }

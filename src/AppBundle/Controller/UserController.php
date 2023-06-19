@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 class UserController extends Controller
 {
     /**
-     * @Route("/users", name="user_list")
+     * @Route("/admin/users", name="user_list")
      */
     public function listAction()
     {
@@ -38,7 +38,7 @@ class UserController extends Controller
 
             $this->addFlash('success', "L'utilisateur a bien été ajouté.");
 
-            return $this->redirectToRoute('user_list');
+            return $this->redirectToRoute('homepage');
         }
 
         return $this->render('user/create.html.twig', ['form' => $form->createView(),
@@ -50,6 +50,7 @@ class UserController extends Controller
      */
     public function editAction(User $user, Request $request)
     {
+
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);

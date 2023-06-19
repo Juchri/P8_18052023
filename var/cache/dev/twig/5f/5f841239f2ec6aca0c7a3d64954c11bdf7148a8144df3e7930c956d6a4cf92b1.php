@@ -12,7 +12,7 @@ use Twig\Sandbox\SecurityNotAllowedFunctionError;
 use Twig\Source;
 use Twig\Template;
 
-/* base.html.twig */
+/* ::base.html.twig */
 class __TwigTemplate_2ec58d6fb87df18a669ffaa91ef8c2abb71483f419a3e14ac65dd5035a1d8760 extends \Twig\Template
 {
     private $source;
@@ -37,10 +37,10 @@ class __TwigTemplate_2ec58d6fb87df18a669ffaa91ef8c2abb71483f419a3e14ac65dd5035a1
     {
         $macros = $this->macros;
         $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
-        $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e->enter($__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "base.html.twig"));
+        $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e->enter($__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "::base.html.twig"));
 
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
-        $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "base.html.twig"));
+        $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "::base.html.twig"));
 
         // line 1
         echo "<!DOCTYPE html>
@@ -274,7 +274,7 @@ class __TwigTemplate_2ec58d6fb87df18a669ffaa91ef8c2abb71483f419a3e14ac65dd5035a1
 
     public function getTemplateName()
     {
-        return "base.html.twig";
+        return "::base.html.twig";
     }
 
     public function isTraitable()
@@ -386,6 +386,6 @@ class __TwigTemplate_2ec58d6fb87df18a669ffaa91ef8c2abb71483f419a3e14ac65dd5035a1
         <script src=\"{{ asset('js/bootstrap.min.js') }}\"></script>
     </body>
 </html>
-", "base.html.twig", "/Applications/MAMP/htdocs/P8_18052023/app/Resources/views/base.html.twig");
+", "::base.html.twig", "/Applications/MAMP/htdocs/P8_18052023/app/Resources/views/base.html.twig");
     }
 }

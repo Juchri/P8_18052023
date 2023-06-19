@@ -3,7 +3,7 @@
         'name' => 'saro0h/to-do-list',
         'pretty_version' => 'dev-develop',
         'version' => 'dev-develop',
-        'reference' => '9ac3d12b73492c570565571af59d1dfb23b79d5b',
+        'reference' => '39b3b8e9035c289ffe692fc052e9bf7816163005',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -401,7 +401,7 @@
         'saro0h/to-do-list' => array(
             'pretty_version' => 'dev-develop',
             'version' => 'dev-develop',
-            'reference' => '9ac3d12b73492c570565571af59d1dfb23b79d5b',
+            'reference' => '39b3b8e9035c289ffe692fc052e9bf7816163005',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

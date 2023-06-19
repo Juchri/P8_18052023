@@ -43,9 +43,9 @@ class Task
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="task")
-     * @ORM\JoinColumn(name="done_by", referencedColumnName="id")
+     * @ORM\JoinColumn(name="doneBy", referencedColumnName="id")
      */
-    private $done_by;
+    private $doneBy;
 
     public function __construct()
     {
@@ -100,12 +100,12 @@ class Task
 
     public function getUser()
     {
-        return $this->done_by;
+        return $this->doneBy;
     }
 
-    public function setUser($done_by)
+    public function setUser($doneBy)
     {
-        $this->done_by = $done_by;
+        $this->doneBy = $doneBy;
     }
 
 }

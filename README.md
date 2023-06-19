@@ -53,3 +53,11 @@ Mise à jour vers Symfony 3.4 :
 
 
 `composer require --dev phpunit/phpunit ^8`
+
+
+À voir avec Jean-Frédéric :
+ 1️⃣ Mettre anonymous pour toutes les tâches déjà crées => twig
+ 2️⃣ Pour les tâches anonymes => seul un ROLE_ADMIN peut les modifier/supprimer 
+ 3️⃣ Access denied plus joli ?
+ 4️⃣ phpUnit qui ne fonctionne pas > voir ça ensemble
+ 5️⃣ blackfire payant => doit-on utiliser autre chose pour les performances ?

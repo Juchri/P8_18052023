@@ -15,37 +15,40 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
         $this->context = $context;
     }
 
-    public function match($pathinfo)
+    public function match($rawPathinfo)
     {
-        $allow = array();
-        $pathinfo = rawurldecode($pathinfo);
+        $allow = [];
+        $pathinfo = rawurldecode($rawPathinfo);
         $trimmedPathinfo = rtrim($pathinfo, '/');
         $context = $this->context;
-        $request = $this->request;
+        $request = $this->request ?: $this->createRequest($pathinfo);
         $requestMethod = $canonicalMethod = $context->getMethod();
-        $scheme = $context->getScheme();
 
         if ('HEAD' === $requestMethod) {
             $canonicalMethod = 'GET';
         }
 
-
         if (0 === strpos($pathinfo, '/_')) {
             // _wdt
-            if (0 === strpos($pathinfo, '/_wdt') && preg_match('#^/_wdt/(?P<token>[^/]++)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => '_wdt')), array (  '_controller' => 'web_profiler.controller.profiler:toolbarAction',));
+            if (0 === strpos($pathinfo, '/_wdt') && preg_match('#^/_wdt/(?P<token>[^/]++)$#sD', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, ['_route' => '_wdt']), array (  '_controller' => 'web_profiler.controller.profiler:toolbarAction',));
             }
 
             if (0 === strpos($pathinfo, '/_profiler')) {
                 // _profiler_home
                 if ('/_profiler' === $trimmedPathinfo) {
                     $ret = array (  '_controller' => 'web_profiler.controller.profiler:homeAction',  '_route' => '_profiler_home',);
-                    if (substr($pathinfo, -1) !== '/') {
-                        return array_replace($ret, $this->redirect($pathinfo.'/', '_profiler_home'));
+                    if ('/' === substr($pathinfo, -1)) {
+                        // no-op
+                    } elseif ('GET' !== $canonicalMethod) {
+                        goto not__profiler_home;
+                    } else {
+                        return array_replace($ret, $this->redirect($rawPathinfo.'/', '_profiler_home'));
                     }
 
                     return $ret;
                 }
+                not__profiler_home:
 
                 if (0 === strpos($pathinfo, '/_profiler/search')) {
                     // _profiler_search
@@ -66,8 +69,8 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
                 }
 
                 // _profiler_search_results
-                if (preg_match('#^/_profiler/(?P<token>[^/]++)/search/results$#s', $pathinfo, $matches)) {
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => '_profiler_search_results')), array (  '_controller' => 'web_profiler.controller.profiler:searchResultsAction',));
+                if (preg_match('#^/_profiler/(?P<token>[^/]++)/search/results$#sD', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, ['_route' => '_profiler_search_results']), array (  '_controller' => 'web_profiler.controller.profiler:searchResultsAction',));
                 }
 
                 // _profiler_open_file
@@ -76,30 +79,30 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
                 }
 
                 // _profiler
-                if (preg_match('#^/_profiler/(?P<token>[^/]++)$#s', $pathinfo, $matches)) {
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => '_profiler')), array (  '_controller' => 'web_profiler.controller.profiler:panelAction',));
+                if (preg_match('#^/_profiler/(?P<token>[^/]++)$#sD', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, ['_route' => '_profiler']), array (  '_controller' => 'web_profiler.controller.profiler:panelAction',));
                 }
 
                 // _profiler_router
-                if (preg_match('#^/_profiler/(?P<token>[^/]++)/router$#s', $pathinfo, $matches)) {
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => '_profiler_router')), array (  '_controller' => 'web_profiler.controller.router:panelAction',));
+                if (preg_match('#^/_profiler/(?P<token>[^/]++)/router$#sD', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, ['_route' => '_profiler_router']), array (  '_controller' => 'web_profiler.controller.router:panelAction',));
                 }
 
                 // _profiler_exception
-                if (preg_match('#^/_profiler/(?P<token>[^/]++)/exception$#s', $pathinfo, $matches)) {
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => '_profiler_exception')), array (  '_controller' => 'web_profiler.controller.exception:showAction',));
+                if (preg_match('#^/_profiler/(?P<token>[^/]++)/exception$#sD', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, ['_route' => '_profiler_exception']), array (  '_controller' => 'web_profiler.controller.exception:showAction',));
                 }
 
                 // _profiler_exception_css
-                if (preg_match('#^/_profiler/(?P<token>[^/]++)/exception\\.css$#s', $pathinfo, $matches)) {
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => '_profiler_exception_css')), array (  '_controller' => 'web_profiler.controller.exception:cssAction',));
+                if (preg_match('#^/_profiler/(?P<token>[^/]++)/exception\\.css$#sD', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, ['_route' => '_profiler_exception_css']), array (  '_controller' => 'web_profiler.controller.exception:cssAction',));
                 }
 
             }
 
             // _twig_error_test
-            if (0 === strpos($pathinfo, '/_error') && preg_match('#^/_error/(?P<code>\\d+)(?:\\.(?P<_format>[^/]++))?$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => '_twig_error_test')), array (  '_controller' => 'twig.controller.preview_error:previewErrorPageAction',  '_format' => 'html',));
+            if (0 === strpos($pathinfo, '/_error') && preg_match('#^/_error/(?P<code>\\d+)(?:\\.(?P<_format>[^/]++))?$#sD', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, ['_route' => '_twig_error_test']), array (  '_controller' => 'twig.controller.preview_error:previewErrorPageAction',  '_format' => 'html',));
             }
 
         }
@@ -107,12 +110,17 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
         // homepage
         if ('' === $trimmedPathinfo) {
             $ret = array (  '_controller' => 'AppBundle\\Controller\\DefaultController::indexAction',  '_route' => 'homepage',);
-            if (substr($pathinfo, -1) !== '/') {
-                return array_replace($ret, $this->redirect($pathinfo.'/', 'homepage'));
+            if ('/' === substr($pathinfo, -1)) {
+                // no-op
+            } elseif ('GET' !== $canonicalMethod) {
+                goto not_homepage;
+            } else {
+                return array_replace($ret, $this->redirect($rawPathinfo.'/', 'homepage'));
             }
 
             return $ret;
         }
+        not_homepage:
 
         if (0 === strpos($pathinfo, '/login')) {
             // login
@@ -144,38 +152,42 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             }
 
             // task_edit
-            if (preg_match('#^/tasks/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'task_edit')), array (  '_controller' => 'AppBundle\\Controller\\TaskController::editAction',));
+            if (preg_match('#^/tasks/(?P<id>[^/]++)/edit$#sD', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, ['_route' => 'task_edit']), array (  '_controller' => 'AppBundle\\Controller\\TaskController::editAction',));
             }
 
             // task_toggle
-            if (preg_match('#^/tasks/(?P<id>[^/]++)/toggle$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'task_toggle')), array (  '_controller' => 'AppBundle\\Controller\\TaskController::toggleTaskAction',));
+            if (preg_match('#^/tasks/(?P<id>[^/]++)/toggle$#sD', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, ['_route' => 'task_toggle']), array (  '_controller' => 'AppBundle\\Controller\\TaskController::toggleTaskAction',));
             }
 
             // task_delete
-            if (preg_match('#^/tasks/(?P<id>[^/]++)/delete$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'task_delete')), array (  '_controller' => 'AppBundle\\Controller\\TaskController::deleteTaskAction',));
+            if (preg_match('#^/tasks/(?P<id>[^/]++)/delete$#sD', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, ['_route' => 'task_delete']), array (  '_controller' => 'AppBundle\\Controller\\TaskController::deleteTaskAction',));
             }
 
         }
 
-        elseif (0 === strpos($pathinfo, '/users')) {
-            // user_list
-            if ('/users' === $pathinfo) {
-                return array (  '_controller' => 'AppBundle\\Controller\\UserController::listAction',  '_route' => 'user_list',);
-            }
+        // user_list
+        if ('/admin/users' === $pathinfo) {
+            return array (  '_controller' => 'AppBundle\\Controller\\UserController::listAction',  '_route' => 'user_list',);
+        }
 
+        if (0 === strpos($pathinfo, '/users')) {
             // user_create
             if ('/users/create' === $pathinfo) {
                 return array (  '_controller' => 'AppBundle\\Controller\\UserController::createAction',  '_route' => 'user_create',);
             }
 
             // user_edit
-            if (preg_match('#^/users/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'user_edit')), array (  '_controller' => 'AppBundle\\Controller\\UserController::editAction',));
+            if (preg_match('#^/users/(?P<id>[^/]++)/edit$#sD', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, ['_route' => 'user_edit']), array (  '_controller' => 'AppBundle\\Controller\\UserController::editAction',));
             }
 
+        }
+
+        if ('/' === $pathinfo && !$allow) {
+            throw new Symfony\Component\Routing\Exception\NoConfigurationException();
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();

@@ -15,6 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class User implements UserInterface
 {
+
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -41,11 +42,10 @@ class User implements UserInterface
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=64)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $roles;
 
-    
     public function getId()
     {
         return $this->id;
@@ -93,7 +93,17 @@ class User implements UserInterface
 
     public function getRoles()
     {
+        if($this->roles == "ROLE_ADMIN") {
+            return array('ROLE_ADMIN');
+        }else {
+            return array('ROLE_USER');
+        }
+    }
+
+    public function getRole()
+    {
         return $this->roles;
+
     }
 
     public function eraseCredentials()
