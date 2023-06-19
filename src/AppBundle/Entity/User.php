@@ -41,10 +41,10 @@ class User implements UserInterface
      */
     private $email;
 
-    /**
-     * @ORM\Column(type="string", nullable=true)
+     /**
+     * @ORM\Column(type="json")
      */
-    private $roles;
+    private $roles = [];
 
     public function getId()
     {
@@ -93,11 +93,7 @@ class User implements UserInterface
 
     public function getRoles()
     {
-        if($this->roles == "ROLE_ADMIN") {
-            return array('ROLE_ADMIN');
-        }else {
-            return array('ROLE_USER');
-        }
+        return $this->roles;
     }
 
     public function getRole()
