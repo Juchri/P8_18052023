@@ -61,3 +61,27 @@ Mise à jour vers Symfony 3.4 :
  3️⃣ Access denied plus joli ?
  4️⃣ phpUnit qui ne fonctionne pas > voir ça ensemble
  5️⃣ blackfire payant => doit-on utiliser autre chose pour les performances ?
+
+
+ `vendor/bin/phpunit`
+
+
+`brew install php70-xdebug`
+
+Disable in php.ini : 
+[xdebug]
+zend_extension="/Applications/MAMP/bin/php/php7.2.34/lib/php/extensions/no-debug-non-zts-20170718/xdebug.so"
+^^
+
+`pecl install xdebug-3.1.6`
+
+
+XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-html public/test-coverage
+
+ls -lah public/test-coverage
+
+On lance les tests unitaires via les commandes suivantes :
+vendor/bin/phpunit
+(va lancer la suite de tests définie dans le phpunit.xml.dist)
+vendor/bin/phpunit --filter=testDefault  (pour ne tester qu'une seule méthode à la fois)
+
