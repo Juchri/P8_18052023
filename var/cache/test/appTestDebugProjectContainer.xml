@@ -2284,9 +2284,9 @@
         <argument>null</argument>
       </call>
       <call method="add">
-        <argument type="service" id="security.request_matcher.zifghm1"/>
+        <argument type="service" id="security.request_matcher.yk6k2aj"/>
         <argument type="collection">
-          <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
+          <argument>ROLE_ADMIN</argument>
         </argument>
         <argument>null</argument>
       </call>
@@ -2294,6 +2294,7 @@
         <argument type="service" id="security.request_matcher.2jd_drb"/>
         <argument type="collection">
           <argument>ROLE_USER</argument>
+          <argument>ROLE_ADMIN</argument>
         </argument>
         <argument>null</argument>
       </call>
@@ -2794,8 +2795,8 @@
     <service id="security.request_matcher.33jzefw" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
       <argument>^/login</argument>
     </service>
-    <service id="security.request_matcher.zifghm1" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
-      <argument>^/users</argument>
+    <service id="security.request_matcher.yk6k2aj" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/admin</argument>
     </service>
     <service id="security.request_matcher.2jd_drb" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
       <argument>^/</argument>
@@ -3576,6 +3577,7 @@
     <service id="doctrine.orm.default_configuration" class="Doctrine\ORM\Configuration" public="false">
       <call method="setEntityNamespaces">
         <argument type="collection">
+          <argument key="App">App\Entity</argument>
           <argument key="AppBundle">AppBundle\Entity</argument>
         </argument>
       </call>
@@ -3623,9 +3625,14 @@
       <argument type="service" id="annotations.cached_reader"/>
       <argument type="collection">
         <argument>/Applications/MAMP/htdocs/P8_18052023/src/AppBundle/Entity</argument>
+        <argument>/Applications/MAMP/htdocs/P8_18052023/src/AppBundle/Entity</argument>
       </argument>
     </service>
     <service id="doctrine.orm.default_metadata_driver" class="Doctrine\Persistence\Mapping\Driver\MappingDriverChain" public="false">
+      <call method="addDriver">
+        <argument type="service" id="doctrine.orm.default_annotation_metadata_driver"/>
+        <argument>App\Entity</argument>
+      </call>
       <call method="addDriver">
         <argument type="service" id="doctrine.orm.default_annotation_metadata_driver"/>
         <argument>AppBundle\Entity</argument>

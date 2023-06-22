@@ -73,15 +73,26 @@ Disable in php.ini :
 zend_extension="/Applications/MAMP/bin/php/php7.2.34/lib/php/extensions/no-debug-non-zts-20170718/xdebug.so"
 ^^
 
+Pour installer Xdebug :
 `pecl install xdebug-3.1.6`
 
 
-XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-html public/test-coverage
+Pour lancer le coverage :
+`XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-html public/test-coverage`
+`ls -lah public/test-coverage`
 
-ls -lah public/test-coverage
-
-On lance les tests unitaires via les commandes suivantes :
-vendor/bin/phpunit
+Pour lancer le test unitaire :
+`vendor/bin/phpunit`
 (va lancer la suite de tests définie dans le phpunit.xml.dist)
-vendor/bin/phpunit --filter=testDefault  (pour ne tester qu'une seule méthode à la fois)
+
+pour ne tester qu'une seule méthode à la fois :
+`vendor/bin/phpunit --filter=testDefault`
+
+
+Tests :
+- insérer un utilisateur
+- vérifier si il est là avec addition
+- puis vérifier nom et prénom correspond
+- vérifier que l'utilisateur ait un id
+- vérifier son rôle
 
