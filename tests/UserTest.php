@@ -2,11 +2,9 @@
 
 namespace App\Tests\Repository;
 
-use App\Entity\Product;
-use AppBundle\Entity\User;
 use Database;
+use AppBundle\Entity\User;
 use PHPUnit\Framework\TestCase;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 final class UserTest extends TestCase
 {

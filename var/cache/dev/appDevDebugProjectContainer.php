@@ -16,6 +16,6 @@ if (!\class_exists(appDevDebugProjectContainer::class, false)) {
 
 return new \ContainerRrrdnet\appDevDebugProjectContainer([
     'container.build_hash' => 'Rrrdnet',
-    'container.build_id' => '24551a0e',
-    'container.build_time' => 1687446118,
+    'container.build_id' => '090e0cb0',
+    'container.build_time' => 1687466911,
 ], __DIR__.\DIRECTORY_SEPARATOR.'ContainerRrrdnet');
