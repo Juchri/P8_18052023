@@ -53,6 +53,13 @@ class Task
         $this->isDone = false;
     }
 
+
+    public function setTestId(int $id): void
+    {
+        // Définir l'identifiant manuellement
+        $this->id = $id;
+    }
+
     public function getId()
     {
         return $this->id;

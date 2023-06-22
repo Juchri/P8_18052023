@@ -69,8 +69,3 @@ class UserController extends Controller
         return $this->render('user/edit.html.twig', ['form' => $form->createView(), 'user' => $user]);
     }
 }
-
-class DuplicateUsernameException extends \Exception
-{
-    protected $message = 'Le nom d\'utilisateur est déjà utilisé.';
-}

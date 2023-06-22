@@ -1,6 +1,7 @@
 <?php
 
 use AppBundle\Entity\User;
+use AppBundle\Entity\Task;
 
 class Database
 {
@@ -27,5 +28,35 @@ class Database
     public function getUsers()
     {
         return $this->users;
+    }
+
+
+
+    private $tasks = [];
+    private $lastTaskId = 0;
+
+    public function addTask(Task $task)
+    {
+        // Simule l'ajout de l'utilisateur à la base de données
+        $this->users[$task->getId()] = $task;
+
+        return true; // On suppose que l'ajout est toujours réussi
+    }
+
+
+
+    public function getTaskById($id)
+    {
+        // Récupère la tâche à partir de l'id
+        if (isset($this->tasks[$id])) {
+            return $this->tasks[$id];
+        }
+
+        return ("La tâche avec l'identifiant $id n'a pas été trouvée.");
+    }
+
+    public function getTasks()
+    {
+        return $this->tasks;
     }
 }

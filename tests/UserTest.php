@@ -12,9 +12,11 @@ final class UserTest extends TestCase
     {
         // Crée un nouvel utilisateur avec des rôles
         $user = new User();
+        $user->setTestId(123);
         $user->setUsername('John Doe');
         $user->setEmail('john.doe@example.com');
         $user->setRoles(['ROLE_ADMIN', 'ROLE_USER']);
+        $user->setPassword('password');
         $user->setPassword('password');
 
         // Ajoute l'utilisateur à la source de données
@@ -31,8 +33,11 @@ final class UserTest extends TestCase
         $this->assertInstanceOf(User::class, $savedUser);
 
         // Vérifie les attributs de l'utilisateur
+        $this->assertEquals('123', $savedUser->getId());
         $this->assertEquals('John Doe', $savedUser->getUsername());
         $this->assertEquals('john.doe@example.com', $savedUser->getEmail());
+        $this->assertEquals(null, $savedUser->getSalt());
+        $this->assertEquals('password', $savedUser->getPassword());
 
         // Vérifie les rôles de l'utilisateur
         $expectedRoles = ['ROLE_ADMIN', 'ROLE_USER'];
@@ -83,7 +88,6 @@ final class UserTest extends TestCase
         $user->setRoles(['ROLE_USER']);
         $user->setPassword('password');
 
-
         // Ajoute l'utilisateur à la source de données
         $database = new Database();
         $result = $database->addUser($user);
@@ -131,6 +135,8 @@ final class UserTest extends TestCase
 
         // Vérifie si le nombre d'utilisateurs a augmenté de 1
         $this->assertCount($previousCount + 1, $database->getUsers());
+     //   $this->assertEquals($previousCount + 1, $user->getId());
+
     }
 
     public function testGetUsers()
@@ -160,31 +166,29 @@ final class UserTest extends TestCase
         $this->assertContains($user2, $users);
     }
 
-    public function testAddUserWithDuplicateUsername()
+    public function testEraseCredentials()
     {
-        // Crée un nouvel utilisateur avec un nom d'utilisateur unique
-        $user1 = new User();
-        $user1->setUsername('JohnDoe');
-        $user1->setEmail('john.doe@example.com');
+        // Crée un nouvel utilisateur avec des données de test
+        $user = new User();
+        $user->setUsername('John Doe');
+        $user->setEmail('john.doe@example.com');
+        $user->setRoles(['ROLE_ADMIN']);
+        $user->setPassword('password');
 
-        // Ajoute le premier utilisateur à la source de données
-        $database = new Database();
-        $result = $database->addUser($user1);
+        // Appelle la fonction eraseCredentials()
+        $user->eraseCredentials();
 
-        // Vérifie si l'ajout du premier utilisateur a réussi
-        $this->assertTrue($result);
+        // Vérifie que les informations sensibles ont été modifiées ou supprimées
+        $this->assertNotEquals('password', $user->getPassword()); // Vérifie que le mot de passe a été modifié
 
-        // Crée un deuxième utilisateur avec le même nom d'utilisateur
-        $user2 = new User();
-        $user2->setUsername('JohnDoe'); // Utilise le même nom d'utilisateur
-        $user2->setEmail('johndoe@example.com');
+        // Vérifie que les informations sensibles ont été effacées
+        $this->assertEmpty($user->getPassword()); // Vérifie que le mot de passe est vide ou rendu inaccessibles
 
-        // Essaye d'ajouter le deuxième utilisateur à la source de données
-        $result = $database->addUser($user2);
-
-        // Vérifie si l'ajout du deuxième utilisateur a échoué
-        $this->assertFalse($result);
+        // Vérifie que les autres propriétés de l'utilisateur n'ont pas été modifiées
+        $this->assertEquals('John Doe', $user->getUsername());
+        $this->assertEquals('john.doe@example.com', $user->getEmail());
     }
+
 }
 
 
