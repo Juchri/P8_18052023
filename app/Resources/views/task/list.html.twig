@@ -15,21 +15,14 @@
                     <h4><a href="{{ path('task_edit', {'id' : task.id }) }}">{{ task.title }}</a></h4>
                     <p>{{ task.content }}</p>
 
-                    <p style="font-style:italic;"> {% if task.user == NULL %}- Anonymus{% endif %} </p>
-
-                    {{ dump( task) }} 
-
-                    {{ dump( task.user) }}
-
-                {#       
-                  <p>{% if task.user == NULL %}-Anonymus
+                    <p style="font-style: italic;">
+                        {% if task.getUser() is not null %}
+                            - {{ task.getUser().username }}
                         {% else %}
-                            {% for user in users %}
-                                {{ user.username }}
-                            {% endfor %}
+                            - Anonymus
                         {% endif %}
-                        #}
-            
+                    </p>
+
 
                 </div>
                 <div>

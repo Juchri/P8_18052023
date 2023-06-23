@@ -42,8 +42,8 @@ class Task
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="task")
-     * @ORM\JoinColumn(name="doneBy", referencedColumnName="id")
+     *
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="task")
      */
     private $doneBy;
 
@@ -109,3 +109,4 @@ class Task
     }
 
 }
+// Revérifier l'annotation, ou refaire dans un autre projet symfony 
