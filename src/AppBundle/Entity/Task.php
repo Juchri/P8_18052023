@@ -40,7 +40,6 @@ class Task
      */
     private $isDone;
 
-
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="task")
      * @ORM\JoinColumn(name="doneBy", referencedColumnName="id")

@@ -21,9 +21,8 @@
         </whitelist>
     </filter>
 
-    <coverage processUncoveredFiles="true">
-        <include>
-            <directory suffix=".php">./src</directory>
-        </include>
-    </coverage>
+    <php>
+        <env name="KERNEL_CLASS" value="App\Kernel" />
+    </php>
+
 </phpunit>

@@ -55,13 +55,6 @@ Mise à jour vers Symfony 3.4 :
 `composer require --dev phpunit/phpunit ^8`
 
 
-À voir avec Jean-Frédéric :
- 1️⃣ Mettre anonymous pour toutes les tâches déjà crées => twig
- 2️⃣ Pour les tâches anonymes => seul un ROLE_ADMIN peut les modifier/supprimer 
- 3️⃣ Access denied plus joli ?
- 4️⃣ phpUnit qui ne fonctionne pas > voir ça ensemble
- 5️⃣ blackfire payant => doit-on utiliser autre chose pour les performances ?
-
 
  `vendor/bin/phpunit`
 
@@ -89,10 +82,7 @@ pour ne tester qu'une seule méthode à la fois :
 `vendor/bin/phpunit --filter=testDefault`
 
 
-Tests :
-- insérer un utilisateur
-- vérifier si il est là avec addition
-- puis vérifier nom et prénom correspond
-- vérifier que l'utilisateur ait un id
-- vérifier son rôle
-
+À voir avec Jean-Frédéric :
+ 1️⃣ Tests fonctionnels => pourquoi ça ne fonctionne pas ?
+ 2️⃣ Tests unitaires ne fonctionnent pas non plus sur les controllers
+ 3️⃣ Accéder au username de l'utilisateur dans la liste des classes
