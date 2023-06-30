@@ -55,9 +55,34 @@ Mise à jour vers Symfony 3.4 :
 `composer require --dev phpunit/phpunit ^8`
 
 
+
+ `vendor/bin/phpunit`
+
+
+`brew install php70-xdebug`
+
+Disable in php.ini : 
+[xdebug]
+zend_extension="/Applications/MAMP/bin/php/php7.2.34/lib/php/extensions/no-debug-non-zts-20170718/xdebug.so"
+^^
+
+Pour installer Xdebug :
+`pecl install xdebug-3.1.6`
+
+
+Pour lancer le coverage :
+`XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-html public/test-coverage`
+`ls -lah public/test-coverage`
+
+Pour lancer le test unitaire :
+`vendor/bin/phpunit`
+(va lancer la suite de tests définie dans le phpunit.xml.dist)
+
+pour ne tester qu'une seule méthode à la fois :
+`vendor/bin/phpunit --filter=testDefault`
+ vendor/bin/phpunit --filter=testHomepageIsUp
+
 À voir avec Jean-Frédéric :
- 1️⃣ Mettre anonymous pour toutes les tâches déjà crées => twig
- 2️⃣ Pour les tâches anonymes => seul un ROLE_ADMIN peut les modifier/supprimer 
- 3️⃣ Access denied plus joli ?
- 4️⃣ phpUnit qui ne fonctionne pas > voir ça ensemble
- 5️⃣ blackfire payant => doit-on utiliser autre chose pour les performances ?
+ 1️⃣ Tests fonctionnels => pourquoi ça ne fonctionne pas ?
+ 2️⃣ Tests unitaires ne fonctionnent pas non plus sur les controllers
+ 3️⃣ Accéder au username de l'utilisateur dans la liste des classes

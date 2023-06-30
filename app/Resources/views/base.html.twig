@@ -72,6 +72,12 @@
             </div>
 
             <br />
+            {% if app.user %}
+                <h2 class="welcome-message">
+                   Bienvenue {{ app.user.username }}
+                </h2>
+            {% endif %}
+
 
             <div class="row">
                 <div class="col-md-12">
