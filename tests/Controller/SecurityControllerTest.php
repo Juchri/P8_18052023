@@ -40,6 +40,14 @@ class SecurityControllerTest extends WebTestCase
         // Vérifie la présence d'un message de bienvenue dans la page d'accueil
         $crawler = $client->followRedirect();
         $this->assertStringContainsStringIgnoringCase( $usernametotest, $crawler->filter('.welcome-message')->text());
+        
+        $loginSuccess = $crawler->filter('.welcome-message')->count() > 0;
+
+        // Vérifie si le test de connexion a réussi
+        if ($loginSuccess) {
+                return true;
+        }
+
     }
 
     public function testLoginCheck()
