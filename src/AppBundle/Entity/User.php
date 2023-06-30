@@ -46,6 +46,11 @@ class User implements UserInterface
      */
     private $roles = [];
 
+    public function setTestId($id)
+    {
+        $this->id = $id;
+    }
+
     public function getId()
     {
         return $this->id;
@@ -104,5 +109,6 @@ class User implements UserInterface
 
     public function eraseCredentials()
     {
+        $this->password = null;
     }
 }
