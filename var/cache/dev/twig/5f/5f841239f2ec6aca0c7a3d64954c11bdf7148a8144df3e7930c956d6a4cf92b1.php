@@ -96,41 +96,51 @@ class __TwigTemplate_2ec58d6fb87df18a669ffaa91ef8c2abb71483f419a3e14ac65dd5035a1
         // line 41
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("user_create");
         echo "\" class=\"btn btn-primary\">Créer un utilisateur</a>
-
                 ";
-        // line 43
-        if (twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 43, $this->source); })()), "user", [], "any", false, false, false, 43)) {
-            // line 44
+        // line 42
+        if ($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ADMIN")) {
+            // line 43
+            echo "                    <a href=\"";
+            echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("user_list");
+            echo "\" class=\"btn btn-primary\">Admin</a>
+                ";
+        }
+        // line 45
+        echo "
+                ";
+        // line 46
+        if (twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 46, $this->source); })()), "user", [], "any", false, false, false, 46)) {
+            // line 47
             echo "                <a href=\"";
             echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("logout");
             echo "\" class=\"pull-right btn btn-danger\">Se déconnecter</a>
                 ";
         }
-        // line 46
+        // line 49
         echo "
                 ";
-        // line 47
-        if (( !twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 47, $this->source); })()), "user", [], "any", false, false, false, 47) && ("login" != twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 47, $this->source); })()), "request", [], "any", false, false, false, 47), "attributes", [], "any", false, false, false, 47), "get", [0 => "_route"], "method", false, false, false, 47)))) {
-            // line 48
+        // line 50
+        if (( !twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 50, $this->source); })()), "user", [], "any", false, false, false, 50) && ("login" != twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 50, $this->source); })()), "request", [], "any", false, false, false, 50), "attributes", [], "any", false, false, false, 50), "get", [0 => "_route"], "method", false, false, false, 50)))) {
+            // line 51
             echo "                <a href=\"";
             echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("login");
             echo "\" class=\"btn btn-success\">Se connecter</a>
                 ";
         }
-        // line 50
+        // line 53
         echo "            </div>
 
             <div class=\"row\">
                 <div class=\"col-md-12\">
                     ";
-        // line 54
+        // line 57
         $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 54, $this->source); })()), "session", [], "any", false, false, false, 54), "flashBag", [], "any", false, false, false, 54), "get", [0 => "success"], "method", false, false, false, 54));
+        $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 57, $this->source); })()), "session", [], "any", false, false, false, 57), "flashBag", [], "any", false, false, false, 57), "get", [0 => "success"], "method", false, false, false, 57));
         foreach ($context['_seq'] as $context["_key"] => $context["flash_message"]) {
-            // line 55
+            // line 58
             echo "                        <div class=\"alert alert-success\" role=\"alert\">
                             <strong>Superbe !</strong> ";
-            // line 56
+            // line 59
             echo twig_escape_filter($this->env, $context["flash_message"], "html", null, true);
             echo "
                         </div>
@@ -139,17 +149,17 @@ class __TwigTemplate_2ec58d6fb87df18a669ffaa91ef8c2abb71483f419a3e14ac65dd5035a1
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['flash_message'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 59
+        // line 62
         echo "
                     ";
-        // line 60
+        // line 63
         $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 60, $this->source); })()), "session", [], "any", false, false, false, 60), "flashBag", [], "any", false, false, false, 60), "get", [0 => "error"], "method", false, false, false, 60));
+        $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 63, $this->source); })()), "session", [], "any", false, false, false, 63), "flashBag", [], "any", false, false, false, 63), "get", [0 => "error"], "method", false, false, false, 63));
         foreach ($context['_seq'] as $context["_key"] => $context["flash_message"]) {
-            // line 61
+            // line 64
             echo "                        <div class=\"alert alert-danger\" role=\"alert\">
                             <strong>Oops !</strong> ";
-            // line 62
+            // line 65
             echo twig_escape_filter($this->env, $context["flash_message"], "html", null, true);
             echo "
                         </div>
@@ -158,26 +168,40 @@ class __TwigTemplate_2ec58d6fb87df18a669ffaa91ef8c2abb71483f419a3e14ac65dd5035a1
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['flash_message'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 65
+        // line 68
         echo "
                     ";
-        // line 66
+        // line 69
         $this->displayBlock('header_title', $context, $blocks);
-        // line 67
+        // line 70
         echo "                    ";
         $this->displayBlock('header_img', $context, $blocks);
-        // line 68
+        // line 71
         echo "                </div>
             </div>
 
             <br />
+            ";
+        // line 75
+        if (twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 75, $this->source); })()), "user", [], "any", false, false, false, 75)) {
+            // line 76
+            echo "                <h2 class=\"welcome-message\">
+                   Bienvenue ";
+            // line 77
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 77, $this->source); })()), "user", [], "any", false, false, false, 77), "username", [], "any", false, false, false, 77), "html", null, true);
+            echo "
+                </h2>
+            ";
+        }
+        // line 80
+        echo "
 
             <div class=\"row\">
                 <div class=\"col-md-12\">
                     ";
-        // line 75
+        // line 84
         $this->displayBlock('body', $context, $blocks);
-        // line 76
+        // line 85
         echo "                </div>
             </div>
         </div>
@@ -197,11 +221,11 @@ class __TwigTemplate_2ec58d6fb87df18a669ffaa91ef8c2abb71483f419a3e14ac65dd5035a1
         </div>
 
         <script src=\"";
-        // line 94
+        // line 103
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("js/jquery.js"), "html", null, true);
         echo "\"></script>
         <script src=\"";
-        // line 95
+        // line 104
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("js/bootstrap.min.js"), "html", null, true);
         echo "\"></script>
     </body>
@@ -215,7 +239,7 @@ class __TwigTemplate_2ec58d6fb87df18a669ffaa91ef8c2abb71483f419a3e14ac65dd5035a1
 
     }
 
-    // line 66
+    // line 69
     public function block_header_title($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -233,7 +257,7 @@ class __TwigTemplate_2ec58d6fb87df18a669ffaa91ef8c2abb71483f419a3e14ac65dd5035a1
 
     }
 
-    // line 67
+    // line 70
     public function block_header_img($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -254,7 +278,7 @@ class __TwigTemplate_2ec58d6fb87df18a669ffaa91ef8c2abb71483f419a3e14ac65dd5035a1
 
     }
 
-    // line 75
+    // line 84
     public function block_body($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -284,7 +308,7 @@ class __TwigTemplate_2ec58d6fb87df18a669ffaa91ef8c2abb71483f419a3e14ac65dd5035a1
 
     public function getDebugInfo()
     {
-        return array (  258 => 75,  237 => 67,  219 => 66,  205 => 95,  201 => 94,  181 => 76,  179 => 75,  170 => 68,  167 => 67,  165 => 66,  162 => 65,  153 => 62,  150 => 61,  146 => 60,  143 => 59,  134 => 56,  131 => 55,  127 => 54,  121 => 50,  115 => 48,  113 => 47,  110 => 46,  104 => 44,  102 => 43,  97 => 41,  86 => 33,  67 => 17,  61 => 14,  46 => 1,);
+        return array (  282 => 84,  261 => 70,  243 => 69,  229 => 104,  225 => 103,  205 => 85,  203 => 84,  197 => 80,  191 => 77,  188 => 76,  186 => 75,  180 => 71,  177 => 70,  175 => 69,  172 => 68,  163 => 65,  160 => 64,  156 => 63,  153 => 62,  144 => 59,  141 => 58,  137 => 57,  131 => 53,  125 => 51,  123 => 50,  120 => 49,  114 => 47,  112 => 46,  109 => 45,  103 => 43,  101 => 42,  97 => 41,  86 => 33,  67 => 17,  61 => 14,  46 => 1,);
     }
 
     public function getSourceContext()
@@ -330,6 +354,9 @@ class __TwigTemplate_2ec58d6fb87df18a669ffaa91ef8c2abb71483f419a3e14ac65dd5035a1
         <div class=\"container\">
             <div class=\"row\">
                 <a href=\"{{ path('user_create') }}\" class=\"btn btn-primary\">Créer un utilisateur</a>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href=\"{{ path('user_list') }}\" class=\"btn btn-primary\">Admin</a>
+                {% endif %}
 
                 {% if app.user %}
                 <a href=\"{{ path('logout') }}\" class=\"pull-right btn btn-danger\">Se déconnecter</a>
@@ -360,6 +387,12 @@ class __TwigTemplate_2ec58d6fb87df18a669ffaa91ef8c2abb71483f419a3e14ac65dd5035a1
             </div>
 
             <br />
+            {% if app.user %}
+                <h2 class=\"welcome-message\">
+                   Bienvenue {{ app.user.username }}
+                </h2>
+            {% endif %}
+
 
             <div class=\"row\">
                 <div class=\"col-md-12\">

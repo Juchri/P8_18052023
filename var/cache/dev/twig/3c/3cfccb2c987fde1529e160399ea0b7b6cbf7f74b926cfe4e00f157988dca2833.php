@@ -75,14 +75,15 @@ class __TwigTemplate_ca18344cf117af386b0176bb8bee5ca00ccfb3b58a1a45cc8334cc41cca
         }
         // line 7
         echo "
+    <h1 class=\"login\">Login</h1>
     <form action=\"";
-        // line 8
+        // line 9
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("login_check");
         echo "\" method=\"post\">
         <label for=\"username\">Nom d'utilisateur :</label>
         <input type=\"text\" id=\"username\" name=\"_username\" value=\"";
-        // line 10
-        echo twig_escape_filter($this->env, (isset($context["last_username"]) || array_key_exists("last_username", $context) ? $context["last_username"] : (function () { throw new RuntimeError('Variable "last_username" does not exist.', 10, $this->source); })()), "html", null, true);
+        // line 11
+        echo twig_escape_filter($this->env, (isset($context["last_username"]) || array_key_exists("last_username", $context) ? $context["last_username"] : (function () { throw new RuntimeError('Variable "last_username" does not exist.', 11, $this->source); })()), "html", null, true);
         echo "\" />
 
         <label for=\"password\">Mot de passe :</label>
@@ -111,7 +112,7 @@ class __TwigTemplate_ca18344cf117af386b0176bb8bee5ca00ccfb3b58a1a45cc8334cc41cca
 
     public function getDebugInfo()
     {
-        return array (  85 => 10,  80 => 8,  77 => 7,  71 => 5,  68 => 4,  58 => 3,  35 => 1,);
+        return array (  86 => 11,  81 => 9,  77 => 7,  71 => 5,  68 => 4,  58 => 3,  35 => 1,);
     }
 
     public function getSourceContext()
@@ -123,6 +124,7 @@ class __TwigTemplate_ca18344cf117af386b0176bb8bee5ca00ccfb3b58a1a45cc8334cc41cca
         <div class=\"alert alert-danger\" role=\"alert\">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
+    <h1 class=\"login\">Login</h1>
     <form action=\"{{ path('login_check') }}\" method=\"post\">
         <label for=\"username\">Nom d'utilisateur :</label>
         <input type=\"text\" id=\"username\" name=\"_username\" value=\"{{ last_username }}\" />
