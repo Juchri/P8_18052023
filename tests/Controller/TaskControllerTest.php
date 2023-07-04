@@ -11,6 +11,7 @@ use AppBundle\Form\TaskType;
 use AppBundle\Entity\User;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use App\Tests\Controller\SecurityControllerTest;
+
 class TaskControllerTest extends WebTestCase
 {
     private $client;
@@ -55,8 +56,6 @@ class TaskControllerTest extends WebTestCase
 
     }
 
-  
-
     public function testCreateAction()
     {
         // Création d'un utilisateur fictif pour le test
@@ -71,7 +70,7 @@ class TaskControllerTest extends WebTestCase
         $client = static::createClient();
 
         // Se connecter avec un utilisateur fictif
-        $user = new User; // Créez un utilisateur ou utilisez un utilisateur existant
+        new User; // Créez un utilisateur ou utilisez un utilisateur existant
         $crawler = $client->request('GET', '/login');
         // Soumettez le formulaire de connexion avec les informations d'identification valides
         $form = $crawler->selectButton('Se connecter')->form([
@@ -114,6 +113,50 @@ class TaskControllerTest extends WebTestCase
         $crawler = $client->followRedirect();
         $flashMessage = $crawler->filter('.alert-success')->text();
         $this->assertStringContainsString('Superbe', $flashMessage);
+    }
+
+    public function testEditAction()
+    {
+        // Créer un client de test
+        $client = static::createClient();
+
+         // Se connecter avec un utilisateur fictif
+         new User; // Créez un utilisateur ou utilisez un utilisateur existant
+         $crawler = $client->request('GET', '/login');
+         // Soumettez le formulaire de connexion avec les informations d'identification valides
+         $form = $crawler->selectButton('Se connecter')->form([
+             '_username' => 'admin',
+             '_password' => 'admin',
+         ]);
+         $client->submit($form);
+
+         // Récupérer une tâche existante depuis la base de données
+         $em = $client->getContainer()->get('doctrine')->getManager();
+         $task = $em->getRepository(Task::class)->findOneBy(['id' => 1]);
+
+        // Accéder à la page d'édition de la tâche
+        $crawler = $client->request('GET', '/tasks/'.$task->getId().'/edit');
+
+        // Vérifier que la réponse est réussie (code 200)
+        $this->assertSame(200, $client->getResponse()->getStatusCode());
+
+        // Remplir le formulaire avec de nouvelles valeurs
+        $form = $crawler->selectButton('Modifier')->form();
+        $form['task[title]'] = 'Nouveau titre';
+        $form['task[content]'] = 'Nouvelle description';
+
+        // Soumettre le formulaire
+        $client->submit($form);
+
+        // Vérifier que le flash message est affiché
+        $crawler = $client->followRedirect();
+        $flashMessage = $crawler->filter('.alert-success')->text();
+        $this->assertStringContainsString('Superbe', $flashMessage);
+
+        // Vérifier que la tâche a été effectivement modifiée en base de données
+        $updatedTask = $em->getRepository(Task::class)->findOneBy(['id' => $task->getId()]);
+        $this->assertEquals('Nouveau titre', $updatedTask->getTitle());
+        $this->assertEquals('Nouvelle description', $updatedTask->getContent());
     }
 
 }
