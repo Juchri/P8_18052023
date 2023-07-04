@@ -86,3 +86,34 @@ pour ne tester qu'une seule méthode à la fois :
  1️⃣ Tests fonctionnels => pourquoi ça ne fonctionne pas ?
  2️⃣ Tests unitaires ne fonctionnent pas non plus sur les controllers
  3️⃣ Accéder au username de l'utilisateur dans la liste des classes
+
+
+
+     public function testCreateAction()
+    {
+        $client = static::createClient();
+
+        $securityTest = new SecurityControllerTest();
+        $loginSuccess = $securityTest->testLogin($client);
+
+        // Vérifie si le test de connexion a réussi
+        if ($loginSuccess) {
+            $response = $client->getResponse();
+
+            // Vérifie si une réponse a été récupérée
+            if ($response) {
+            $crawler = $client->request('GET', '/tasks/create');
+            $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+            // Remplis le formulaire avec des identifiants valides
+            $form = $crawler->selectButton('Ajouter')->form();
+            $form['title'] = 'test';
+            $form['content'] = 'test';
+
+             // Vérifie la redirection après connexion réussie
+            $this->assertEquals(200, $client->getResponse()->getStatusCode());
+            $this->assertEquals('http://localhost/', $client->getResponse()->headers->get('Location'));
+
+            }
+        }
+    }
