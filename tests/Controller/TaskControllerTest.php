@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Form\TaskType;
 use AppBundle\Entity\User;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
+use App\Tests\Controller\SecurityControllerTest;
 class TaskControllerTest extends WebTestCase
 {
     private $client;
@@ -125,6 +126,8 @@ class TaskControllerTest extends WebTestCase
 
         // Soumettez le formulaire de création de tâche
         $client->submit($form);
+        $task = new Task();
+        $task->setUser($user);
 
         // Vérifiez la réponse HTTP
         $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
@@ -139,4 +142,59 @@ class TaskControllerTest extends WebTestCase
         // Vérifiez la redirection après la création de la tâche
         $this->assertEquals('/tasks', $client->getResponse()->headers->get('Location'));
     }
+
+    public function testCreateAction3()
+{
+    // Création d'un utilisateur fictif pour le test
+    $user = new User();
+
+    // Création d'un objet Task fictif avec des données valides
+    $taskData = [
+        'title' => 'Test Task',
+        'content' => 'This is a test task',
+    ];
+
+    $client = static::createClient();
+
+    // Se connecter avec un utilisateur fictif
+    $user = new User; // Créez un utilisateur ou utilisez un utilisateur existant
+    $crawler = $client->request('GET', '/login');
+    // Soumettez le formulaire de connexion avec les informations d'identification valides
+    $form = $crawler->selectButton('Se connecter')->form([
+        '_username' => 'admin',
+        '_password' => 'admin',
+    ]);
+    $client->submit($form);
+
+    // Accéder à la page de création de tâche
+    $crawler = $client->request('GET', '/tasks/create');
+
+    // Vérifier que la page est accessible
+    $this->assertSame(200, $client->getResponse()->getStatusCode());
+
+    // Remplir le formulaire avec les données valides
+    $form = $crawler->selectButton('Ajouter')->form();
+    $form['task[title]'] = $taskData['title'];
+    $form['task[content]'] = $taskData['content'];
+
+    // Soumettre le formulaire
+    $client->submit($form);
+
+    // Vérifier la redirection après soumission du formulaire
+    $this->assertSame(302, $client->getResponse()->getStatusCode());
+    $this->assertSame('http://localhost/task_list', $client->getResponse()->headers->get('Location'));
+
+    // Vérifier que la tâche a été correctement enregistrée en base de données
+    $em = $client->getContainer()->get('doctrine')->getManager();
+    $task = $em->getRepository(Task::class)->findOneBy(['title' => $taskData['title']]);
+    $this->assertInstanceOf(Task::class, $task);
+    $this->assertSame($user, $task->getUser());
+    $this->assertSame($taskData['content'], $task->getContent());
+
+    // Vérifier le message flash
+    $crawler = $client->followRedirect();
+    $flashMessage = $crawler->filter('.flash-messages .flash-message')->text();
+    $this->assertSame('La tâche a été bien été ajoutée.', $flashMessage);
+}
+
 }
