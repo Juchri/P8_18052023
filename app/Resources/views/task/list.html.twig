@@ -35,6 +35,9 @@
                     <form action="{{ path('task_delete', {'id' : task.id }) }}">
                         <button class="btn btn-danger btn-sm pull-right">Supprimer</button>
                     </form>
+                         <form action="{{ path('task_edit', {'id' : task.id }) }}">
+                        <button class="btn btn-primary btn-sm pull-right m-2">Modifier</button>
+                    </form>
                 </div>
             </div>
         </div>
