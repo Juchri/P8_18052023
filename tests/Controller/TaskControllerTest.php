@@ -114,7 +114,7 @@ class TaskControllerTest extends WebTestCase
         $this->assertStringContainsString('Superbe', $flashMessage);
     }
 
-    public function testEditAction()
+    public function testEditTask()
     {
         // Créer un client de test
         $client = static::createClient();
@@ -241,9 +241,7 @@ class TaskControllerTest extends WebTestCase
     // Créer une nouvelle tâche
     $task = new Task();
     $currentUser = $client->getContainer()->get('security.token_storage')->getToken()->getUser();
-    $idToDelete = 71;
     // Définir les propriétés de la tâche selon vos besoins
-    $task->setTestId($idToDelete);
     $task->setTitle('Tâche à supprimer');
     $task->setContent('Tâche à supprimer');
     $task->setUser($currentUser);
@@ -253,6 +251,7 @@ class TaskControllerTest extends WebTestCase
     // Persistez et flush la tâche
     $em->persist($task);
     $em->flush();
+    $idToDelete = $task->getId();
 
     // Effectuer une requête POST vers l'URL de la fonction deleteTaskAction avec l'ID de la tâche
     $client->request('POST', '/tasks/'.$idToDelete.'/delete');
