@@ -163,6 +163,12 @@ class __TwigTemplate_016d99d4eaf6e0705fd5f8e0cb0aa897b4b98083a65d8d518b777a7c398
             echo "\">
                         <button class=\"btn btn-danger btn-sm pull-right\">Supprimer</button>
                     </form>
+                         <form action=\"";
+            // line 37
+            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("task_edit", ["id" => twig_get_attribute($this->env, $this->source, $context["task"], "id", [], "any", false, false, false, 37)]), "html", null, true);
+            echo "\">
+                        <button class=\"btn btn-primary btn-sm pull-right m-2\">Modifier</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -170,10 +176,10 @@ class __TwigTemplate_016d99d4eaf6e0705fd5f8e0cb0aa897b4b98083a65d8d518b777a7c398
             $context['_iterated'] = true;
         }
         if (!$context['_iterated']) {
-            // line 41
+            // line 44
             echo "            <div class=\"alert alert-warning\" role=\"alert\">
                 Il n'y a pas encore de tâche enregistrée. <a href=\"";
-            // line 42
+            // line 45
             echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("task_create");
             echo "\" class=\"btn btn-warning pull-right\">Créer une tâche</a>
             </div>
@@ -182,7 +188,7 @@ class __TwigTemplate_016d99d4eaf6e0705fd5f8e0cb0aa897b4b98083a65d8d518b777a7c398
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['task'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 45
+        // line 48
         echo "    </div>
 ";
         
@@ -205,7 +211,7 @@ class __TwigTemplate_016d99d4eaf6e0705fd5f8e0cb0aa897b4b98083a65d8d518b777a7c398
 
     public function getDebugInfo()
     {
-        return array (  186 => 45,  177 => 42,  174 => 41,  162 => 34,  158 => 32,  152 => 31,  147 => 29,  140 => 24,  136 => 22,  130 => 20,  128 => 19,  122 => 16,  116 => 15,  113 => 14,  107 => 13,  101 => 9,  96 => 8,  90 => 6,  80 => 5,  59 => 3,  36 => 1,);
+        return array (  192 => 48,  183 => 45,  180 => 44,  168 => 37,  162 => 34,  158 => 32,  152 => 31,  147 => 29,  140 => 24,  136 => 22,  130 => 20,  128 => 19,  122 => 16,  116 => 15,  113 => 14,  107 => 13,  101 => 9,  96 => 8,  90 => 6,  80 => 5,  59 => 3,  36 => 1,);
     }
 
     public function getSourceContext()
@@ -245,6 +251,9 @@ class __TwigTemplate_016d99d4eaf6e0705fd5f8e0cb0aa897b4b98083a65d8d518b777a7c398
                     </form>
                     <form action=\"{{ path('task_delete', {'id' : task.id }) }}\">
                         <button class=\"btn btn-danger btn-sm pull-right\">Supprimer</button>
+                    </form>
+                         <form action=\"{{ path('task_edit', {'id' : task.id }) }}\">
+                        <button class=\"btn btn-primary btn-sm pull-right m-2\">Modifier</button>
                     </form>
                 </div>
             </div>
