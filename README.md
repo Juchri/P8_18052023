@@ -89,6 +89,13 @@ pour ne tester qu'une seule méthode à la fois :
 
 
 
+pour la documentation :
+`php phpDocumentor.phar run -d src -t doc`
+
+phpDocumentor v3.1.1 :
+`php phpDocumentor.phar phpDocumentor v3.1.1`
+To download phpDocumentor.phar (var 3.1.1): https://github.com/phpDocumentor/phpDocumentor/releases/tag/v3.1.1
+
      public function testCreateAction()
     {
         $client = static::createClient();
