@@ -59,7 +59,51 @@ class Task
         $this->isDone = false;
     }
 
-    // Getters and setters for properties...
+    public function setTestId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    public function setContent($content)
+    {
+        $this->content = $content;
+    }
+
+    public function isDone()
+    {
+        return $this->isDone;
+    }
+
 
     /**
      * Toggle the status of the task.
@@ -69,5 +113,15 @@ class Task
     public function toggle($flag)
     {
         $this->isDone = $flag;
+    }
+
+    public function getUser()
+    {
+        return $this->doneBy;
+    }
+
+    public function setUser($doneBy)
+    {
+        $this->doneBy = $doneBy;
     }
 }
