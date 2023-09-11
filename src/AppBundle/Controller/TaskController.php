@@ -79,9 +79,25 @@ class TaskController extends Controller
     public function editAction(Task $task, Request $request, UserInterface $currentUser)
     {
         if ($task->getUser() == $currentUser) {
-            // Rest of the method remains the same...
+            $form = $this->createForm(TaskType::class, $task);
+
+            $form->handleRequest($request);
+    
+            if ($form->isValid()) {
+                $this->getDoctrine()->getManager()->flush();
+    
+                $this->addFlash('success', 'La tâche a bien été modifiée.');
+    
+                return $this->redirectToRoute('task_list');
+            }
+    
+            return $this->render('task/edit.html.twig', [
+                'form' => $form->createView(),
+                'task' => $task,
+            ]);
         } else {
-            // Rest of the method remains the same...
+            $this->addFlash('error', 'Cette tâche ne peut être modifiée que par son auteur.');
+            return $this->redirectToRoute('task_list');
         }
     }
 
@@ -98,7 +114,12 @@ class TaskController extends Controller
      */
     public function toggleTaskAction(Task $task)
     {
-        // Rest of the method remains the same...
+        $task->toggle(!$task->isDone());
+        $this->getDoctrine()->getManager()->flush();
+
+        $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
+
+        return $this->redirectToRoute('task_list');
     }
 
     /**
@@ -115,6 +136,18 @@ class TaskController extends Controller
      */
     public function deleteTaskAction(Task $task, UserInterface $currentUser)
     {
-        // Rest of the method remains the same...
+        if ($task->getUser() == $currentUser) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($task);
+            $em->flush();
+    
+            $this->addFlash('success', 'La tâche a bien été supprimée.');
+
+            return $this->redirectToRoute('task_list');
+        } else {
+            $this->addFlash('error', 'Cette tâche ne peut être suprimée que par son auteur ou un admin.');
+            return $this->redirectToRoute('task_list');
+        }
     }
 }

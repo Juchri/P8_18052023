@@ -58,7 +58,15 @@ class User implements UserInterface
         $this->roles = [];
     }
 
-    // Getters and setters for properties...
+    public function setTestId($id)
+    {
+        $this->id = $id;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Get the salt for the user.
@@ -78,6 +86,43 @@ class User implements UserInterface
     public function getRoles()
     {
         return $this->roles;
+    }
+
+
+    public function getUsername()
+    {
+        return $this->username;
+
+    }
+
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
     }
 
     /**

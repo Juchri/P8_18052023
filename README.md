@@ -61,14 +61,13 @@ Mise à jour vers Symfony 3.4 :
 
 `brew install php70-xdebug`
 
-Disable in php.ini : 
+Disable in php.ini :
 [xdebug]
 zend_extension="/Applications/MAMP/bin/php/php7.2.34/lib/php/extensions/no-debug-non-zts-20170718/xdebug.so"
 ^^
 
 Pour installer Xdebug :
 `pecl install xdebug-3.1.6`
-
 
 Pour lancer le coverage :
 `XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-html public/test-coverage`
@@ -80,14 +79,6 @@ Pour lancer le test unitaire :
 
 pour ne tester qu'une seule méthode à la fois :
 `vendor/bin/phpunit --filter=testDefault`
- vendor/bin/phpunit --filter=testHomepageIsUp
-
-À voir avec Jean-Frédéric :
- 1️⃣ Tests fonctionnels => pourquoi ça ne fonctionne pas ?
- 2️⃣ Tests unitaires ne fonctionnent pas non plus sur les controllers
- 3️⃣ Accéder au username de l'utilisateur dans la liste des classes
-
-
 
 pour la documentation :
 `php phpDocumentor.phar run -d src -t doc`
@@ -96,31 +87,8 @@ phpDocumentor v3.1.1 :
 `php phpDocumentor.phar phpDocumentor v3.1.1`
 To download phpDocumentor.phar (var 3.1.1): https://github.com/phpDocumentor/phpDocumentor/releases/tag/v3.1.1
 
-     public function testCreateAction()
-    {
-        $client = static::createClient();
 
-        $securityTest = new SecurityControllerTest();
-        $loginSuccess = $securityTest->testLogin($client);
-
-        // Vérifie si le test de connexion a réussi
-        if ($loginSuccess) {
-            $response = $client->getResponse();
-
-            // Vérifie si une réponse a été récupérée
-            if ($response) {
-            $crawler = $client->request('GET', '/tasks/create');
-            $this->assertEquals(200, $client->getResponse()->getStatusCode());
-
-            // Remplis le formulaire avec des identifiants valides
-            $form = $crawler->selectButton('Ajouter')->form();
-            $form['title'] = 'test';
-            $form['content'] = 'test';
-
-             // Vérifie la redirection après connexion réussie
-            $this->assertEquals(200, $client->getResponse()->getStatusCode());
-            $this->assertEquals('http://localhost/', $client->getResponse()->headers->get('Location'));
-
-            }
-        }
-    }
+Notes dettes techinques :
+ce qui est pas à jour et ce qui reste à faire, mises à jour ?
+description plus complète de Security
+présentation
