@@ -72,3 +72,6 @@ phpDocumentor v3.1.1 :
 `php phpDocumentor.phar phpDocumentor v3.1.1`
 
 To download phpDocumentor.phar (var 3.1.1): https://github.com/phpDocumentor/phpDocumentor/releases/tag/v3.1.1
+
+
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/6409db3962814f1caec254713b0e560c)](https://app.codacy.com/gh/Juchri/P8_18052023/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
