@@ -1,94 +1,77 @@
-ToDoList
+ToDoList ✅
 ========
 
-Base du projet #8 : Améliorez un projet existant
-
+Improve an existing project !
 https://openclassrooms.com/projects/ameliorer-un-projet-existant-1
 
 
+## How to install this project ?
+
+### 1. Go back to Php 7.2
 
 `composer install`
 
-
-
-SITE_URL=http://127.0.0.1:8888/webEclair/
-DB_HOST=localhost
-DB_USER=root
-DB_PWD=root
-DB_NAME=leseclaireuses
-ACTIRISE=c11ec3af-9649-5654-a12c-19a8781df93d
-
-secret: todolist
-
 If you are running a php version > 7.4.9, please change the settings with :
 
-` local:php:list `
-` echo 7.4.9 > .php-version `
+To do so, you can install [Homebrew](https://brew.sh/), then :
 
-créer une table et la lier au projet
-
-Pour désinstaller :
-`brew unlink php@8.2`
-`brew link php@8.2` (si besoin de le remettre)
-
-Pour installer php 7.2 :
 `brew tap shivammathur/php`
 `brew install shivammathur/php/php@7.2`
 
+To unload php 8.2 and link php 7.2 : 
+`brew unlink php@8.2`
 `brew link php@7.2`
 
-The php.ini and php-fpm.ini file can be found in:
-    /usr/local/etc/php/8.2/
+You can do the opposite if you want to go back to php 8.2 or any other version
 
-To start php now and restart at login:
- `brew services start php`
-
-To copy the database structure :
- `php bin/console d:s:u -f`
-
-
-Mise à jour vers Symfony 3.4 :
+### 2. Update to Symfony 3.4 :
 `composer require symfony/symfony:3.4 --with-all-dependencies`
 
 
+### 3. Create the Database
+
+
+To start php now and restart at login:
+
+Create a .env file with all the different usual variables :
+
+To run this project, you will need to add the following environment variables to your .env file
+
+`APP_ENV`
+`APP_SECRET`
+`DATABASE_URL`
+
+[Database structure to download](./toDoList.sql)
+
+
+### 4. Install PhpUnit
 
 `composer require --dev phpunit/phpunit ^8`
 
 
-
- `vendor/bin/phpunit`
-
-
 `brew install php70-xdebug`
 
-Disable in php.ini :
-[xdebug]
-zend_extension="/Applications/MAMP/bin/php/php7.2.34/lib/php/extensions/no-debug-non-zts-20170718/xdebug.so"
-^^
-
-Pour installer Xdebug :
+Install Xdebug :
 `pecl install xdebug-3.1.6`
 
-Pour lancer le coverage :
+Launch the coverage :
 `XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-html public/test-coverage`
 `ls -lah public/test-coverage`
 
-Pour lancer le test unitaire :
+Launch unit test :
 `vendor/bin/phpunit`
-(va lancer la suite de tests définie dans le phpunit.xml.dist)
 
-pour ne tester qu'une seule méthode à la fois :
+(and for only one method at a time) :
 `vendor/bin/phpunit --filter=testDefault`
 
-pour la documentation :
+### 5. Documentation thanks to phpDocumentor
+
 `php phpDocumentor.phar run -d src -t doc`
 
 phpDocumentor v3.1.1 :
 `php phpDocumentor.phar phpDocumentor v3.1.1`
+
 To download phpDocumentor.phar (var 3.1.1): https://github.com/phpDocumentor/phpDocumentor/releases/tag/v3.1.1
 
 
-Notes dettes techinques :
-ce qui est pas à jour et ce qui reste à faire, mises à jour ?
-description plus complète de Security
-présentation
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/6409db3962814f1caec254713b0e560c)](https://app.codacy.com/gh/Juchri/P8_18052023/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
