@@ -53,7 +53,7 @@ class UserControllerTest extends WebTestCase
 
         $this->assertStringContainsStringIgnoringCase( $usernametotest, $crawler->filter('.welcome-message')->text());
 
-        $crawler = $client->request('GET', '/admin/users');
+        $crawler = $client->request('GET', '/users');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertStringContainsStringIgnoringCase('Liste', $client->getResponse()->getContent());
 

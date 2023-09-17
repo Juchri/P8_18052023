@@ -55,7 +55,7 @@ Install Xdebug :
 `pecl install xdebug-3.1.6`
 
 Launch the coverage :
-`XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-html public/test-coverage`
+`XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-html src/public/test-coverage`
 `ls -lah public/test-coverage`
 
 Launch unit test :

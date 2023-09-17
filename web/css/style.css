@@ -61,6 +61,7 @@ footer {
 .btn {
     border: none;
     border-radius: 2ex;
+    margin: 10px;
 }
 
 .navbar-brand {
