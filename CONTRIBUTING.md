@@ -7,7 +7,7 @@ Le projet consiste en une application qui permette de centraliser ses notes, les
 
 ## 2. Quels sont les prérequis ? 
 
-Le projet fonctionne sous Symfony 3.1 et Php 7.2. Il faut donc pouvoir reproduire cet environnement pour pouvoir y contribuer.
+Le projet fonctionne sous Symfony 3.4 et Php 7.2. Il faut donc pouvoir reproduire cet environnement pour pouvoir y contribuer.
 
 Les technologies utilisées et requises sont :
 
@@ -26,7 +26,7 @@ Les technologies utilisées et requises sont :
 Une idée des features et améliorations à mettre en place :
 
 - Clôner le projet sur Github
-- Créer une branhce qui commencerait par "feature_***" pour chaque contribution
+- Créer une branche qui commencerait par "feature_***" pour chaque contribution
 - Installer les différentes dépendances comme phpUnit et phpDocumentor pour la documentation et les tests unitaires
 - Documenter chaque classe avec les commentaires de phpDocumentor pour enrichir la documentation prévue à cet effet
 - Avoir un coverage de tests supérieurs à 70% 
@@ -65,7 +65,7 @@ This project is an application that allows you to centralize your notes, mark th
 
 ## 2. What are the prerequisites?
 
-The project runs on Symfony 3.1 and PHP 7.2. Therefore, you need to be able to reproduce this environment to contribute.
+The project runs on Symfony 3.4 and PHP 7.2. Therefore, you need to be able to reproduce this environment to contribute.
 
 The technologies used and required are:
 
