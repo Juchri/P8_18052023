@@ -78,7 +78,7 @@ class TaskController extends Controller
      */
     public function editAction(Task $task, Request $request, UserInterface $currentUser)
     {
-        if ($task->getUser() == $currentUser) {
+        if(($currentUser->getRoles() == ['ROLE_ADMIN'] && $task->getUser() == NULL) || ($task->getUser() == $currentUser)) {
             $form = $this->createForm(TaskType::class, $task);
 
             $form->handleRequest($request);
@@ -136,7 +136,7 @@ class TaskController extends Controller
      */
     public function deleteTaskAction(Task $task, UserInterface $currentUser)
     {
-        if ($task->getUser() == $currentUser) {
+        if(($currentUser->getRoles() == ['ROLE_ADMIN'] && $task->getUser() == NULL) || ($task->getUser() == $currentUser)) {
 
             $em = $this->getDoctrine()->getManager();
             $em->remove($task);
