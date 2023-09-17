@@ -87,7 +87,10 @@ class __TwigTemplate_2ec58d6fb87df18a669ffaa91ef8c2abb71483f419a3e14ac65dd5035a1
         // line 32
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("img/logo-to-do.webp"), "html", null, true);
         echo "\" alt=\"To Do List App\" />
-                    <a class=\"navbar-brand\" href=\"#\">To Do List app</a>
+                    <a href=\"";
+        // line 33
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("homepage");
+        echo "\" class=\"navbar-brand\" href=\"#\">To Do List app</a>
                 </div>
             </div>
         </nav>
@@ -311,7 +314,7 @@ class __TwigTemplate_2ec58d6fb87df18a669ffaa91ef8c2abb71483f419a3e14ac65dd5035a1
 
     public function getDebugInfo()
     {
-        return array (  285 => 84,  264 => 70,  246 => 69,  232 => 104,  228 => 103,  208 => 85,  206 => 84,  200 => 80,  194 => 77,  191 => 76,  189 => 75,  183 => 71,  180 => 70,  178 => 69,  175 => 68,  166 => 65,  163 => 64,  159 => 63,  156 => 62,  147 => 59,  144 => 58,  140 => 57,  134 => 53,  128 => 51,  126 => 50,  123 => 49,  117 => 47,  115 => 46,  112 => 45,  106 => 43,  104 => 42,  100 => 41,  88 => 32,  71 => 18,  67 => 17,  61 => 14,  46 => 1,);
+        return array (  288 => 84,  267 => 70,  249 => 69,  235 => 104,  231 => 103,  211 => 85,  209 => 84,  203 => 80,  197 => 77,  194 => 76,  192 => 75,  186 => 71,  183 => 70,  181 => 69,  178 => 68,  169 => 65,  166 => 64,  162 => 63,  159 => 62,  150 => 59,  147 => 58,  143 => 57,  137 => 53,  131 => 51,  129 => 50,  126 => 49,  120 => 47,  118 => 46,  115 => 45,  109 => 43,  107 => 42,  103 => 41,  92 => 33,  88 => 32,  71 => 18,  67 => 17,  61 => 14,  46 => 1,);
     }
 
     public function getSourceContext()
@@ -348,7 +351,7 @@ class __TwigTemplate_2ec58d6fb87df18a669ffaa91ef8c2abb71483f419a3e14ac65dd5035a1
             <div class=\"container\">
                 <div class=\"navbar-header\">
                     <img style=\"width: 40px; margin: 10px;\" src=\"{{ asset('img/logo-to-do.webp') }}\" alt=\"To Do List App\" />
-                    <a class=\"navbar-brand\" href=\"#\">To Do List app</a>
+                    <a href=\"{{ path('homepage') }}\" class=\"navbar-brand\" href=\"#\">To Do List app</a>
                 </div>
             </div>
         </nav>
